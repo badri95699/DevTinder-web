@@ -33,7 +33,7 @@ const Body = () => {
   },[]);
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <NavBar />
       <Outlet />
       <Footer />

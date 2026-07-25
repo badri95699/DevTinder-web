@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants"
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("akshay@gmail.com");
-  const [password, setPassword] = useState("Akshay@123");
+  const [emailId, setEmailId] = useState("name@example.com");
+  const [password, setPassword] = useState("******");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState();
@@ -36,24 +36,24 @@ const Login = () => {
           <h2 className="card-title justify-center">Login</h2>
           <div>
             <label className="form-control w-full max-w-xs my-2">
-              <div className="label">
-                <span className="label-text">Email ID:</span>
+              <div className="label my-1">
+                <span className="label-text">Email ID</span>
               </div>
               <input
                 type="text"
                 value={emailId}
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs my-1"
                 onChange={(e) => setEmailId(e.target.value)}
               />
             </label>
             <label className="form-control w-full max-w-xs my-2">
-              <div className="label">
+              <div className="label my-1">
                 <span className="label-text">Password</span>
               </div>
               <input
                 type="text"
                 value={password}
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs my-1"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
