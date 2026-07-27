@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import { removeFeed } from "../utils/feedSlice";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
@@ -13,6 +14,7 @@ const NavBar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
+      dispatch(removeFeed());
       return navigate("/login");
     } catch (err) {
       console.log(err);
@@ -20,23 +22,23 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar bg-base-300 shadow-sm">
+    <div className="navbar bg-base-300 shadow-sm bg-neutral ">
       <div className="flex-1">
-        <Link className="btn btn-ghost text-xl" to="/">
+        <Link className="btn btn-ghost text-xl" to={!user ? "/login" : "/"}>
           DevTinder 🧑🏻‍💻
         </Link>
       </div>
       {user && (
         <div className="flex gap-2 mx-5 items-center">
-          <div>Hello, {user.firstName}</div>
+          <div className="font-semibold">Hello, {user.firstName}</div>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full">
-                <img alt="user photo" src={user.photoUrl} />
+              <div className="w-10 rounded-full ">
+                <img alt="user photo" src={user.photoUrl} className="object-top object-cover" />
               </div>
             </div>
             <ul
@@ -49,7 +51,10 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to={"/connections"}>Connections</Link>
+              </li>
+              <li>
+                <Link to={"/requests"}>Requests</Link>
               </li>
               <li>
                 <Link onClick={handleLogout}>Logout</Link>

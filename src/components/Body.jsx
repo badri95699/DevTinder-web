@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Outlet, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
@@ -22,7 +21,7 @@ const Body = () => {
       if (err.status == 401) {
         navigate("/login");
       } else {
-        // can make a error page here 
+        // can make a error page here
         // if some other type of error came
         console.log(err);
       }
@@ -30,12 +29,16 @@ const Body = () => {
   };
   useEffect(() => {
     fetchUser();
-  },[]);
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white">
       <NavBar />
-      <Outlet />
+
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
       <Footer />
     </div>
   );

@@ -4,13 +4,10 @@ import UserCard from "./UserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { addFeed } from "../utils/feedSlice";
-import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
-  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const getFeed = async () => {
     try {
@@ -24,18 +21,27 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    if(!user) {
-      return navigate("/login");
-    }
     getFeed();
   }, []);
 
-  return (
-    feed && (
-      <div className="flex justify-center my-2">
-        <UserCard user={feed[0]} />
+  if (!feed || feed.length == 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[70vh]">
+        <h1 className="text-4xl font-bold mb-4">
+          Your feed is on vacation! 😴
+        </h1>
+        <p className="text-gray-400">
+          Looks like there are no more profiles to show.
+        </p>
       </div>
-    )
+    );
+  }
+
+  return (
+    <div className="flex flex-col justify-center items-center my-2">
+      <h1 className="text-4xl font-semibold mb-4">Discover</h1>
+      <UserCard user={feed[0]} />
+    </div>
   );
 };
 
