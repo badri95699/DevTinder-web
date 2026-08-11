@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
@@ -29,14 +30,14 @@ const Connections = () => {
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl font-semibold">Connections</h1>
+      <h1 className="text-white text-3xl font-semibold">Connections</h1>
 
       {connections.map((connection) => {
         const { _id, firstName, lastName, photoUrl, age, gender, about } =
           connection;
 
         return (
-          <div className=" flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto" key={_id}>
+          <div className=" flex justify-between items-center m-4 p-4 rounded-lg bg-slate-800 w-1/2 mx-auto " key={_id}>
             <div>
               <img
                 alt="photo"
@@ -44,13 +45,14 @@ const Connections = () => {
                 src={photoUrl}
               />
             </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
+            <div className="text-left mx-6 flex-1">
+              <h2 className="font-semibold text-xl">
                 {firstName + " " + lastName}
               </h2>
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
             </div>
+            <Link to={"/chat/" + _id}><button className="btn btn-primary">Chat</button></Link>
           </div>
         );
       })}
